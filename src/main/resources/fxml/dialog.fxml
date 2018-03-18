@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.web.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" fx:id="anchorPane" minHeight="550.0" minWidth="750.0" prefHeight="550.0" prefWidth="750.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lcw.controller.DialogController">
+    <stylesheets>
+        <URL value="@/styles/dialog.css" />
+    </stylesheets>
+    <children>
+        <ProgressBar fx:id="progressBar" layoutY="29.0" prefHeight="28.0" prefWidth="620.0" progress="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0" />
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-8.0" prefHeight="28.0" prefWidth="752.0" style="-fx-background-color: white;" text="玩命加载中，请耐心等待" textAlignment="CENTER" textFill="#220101" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+        <Button fx:id="closeAdBtn" layoutX="727.0" layoutY="3.0" mnemonicParsing="false" onAction="#closeAd" prefHeight="15.0" prefWidth="27.0" text="X" textAlignment="CENTER" textFill="#ff0202" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <font>
+                <Font size="13.0" />
+            </font>
+        </Button>
+      <WebView fx:id="webView" layoutX="14.0" layoutY="56.0" prefHeight="230.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="56.0" />
+    </children>
+</AnchorPane>

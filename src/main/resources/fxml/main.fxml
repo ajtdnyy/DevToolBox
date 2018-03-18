@@ -1,0 +1,550 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.web.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import java.net.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="pane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="700.0" minWidth="1200.0" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lcw.controller.MainController">
+    <stylesheets>
+        <URL value="@/styles/main.css" />
+    </stylesheets>
+    <children>
+        <AnchorPane prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: #2e569f;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <MenuBar layoutY="24.0" prefHeight="0.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="27.0">
+                    <menus>
+                        <Menu mnemonicParsing="false" text="帮助">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#showAbout" text="关于" />
+                                <MenuItem mnemonicParsing="false" onAction="#showFeedback" text="反馈" />
+                                <MenuItem mnemonicParsing="false" onAction="#showDialog" text="查看加载页" />
+                                <MenuItem mnemonicParsing="false" onAction="#checkUpdate" text="检查更新" />
+                                <MenuItem mnemonicParsing="false" onAction="#showHelp" text="使用说明" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="捐助">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#showQRCode" text="查看二维码" />
+                            </items>
+                        </Menu>
+                    </menus>
+                </MenuBar>
+            </children>
+        </AnchorPane>
+        <TabPane fx:id="tabPane" layoutY="52.0" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="31.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="52.0">
+            <tabs>
+                <Tab text="服务调试">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <HBox alignment="CENTER_LEFT" layoutX="2.0" layoutY="23.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="753.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <children>
+                                        <Label prefHeight="28.0" text="注册中心地址">
+                                            <HBox.margin>
+                                                <Insets left="5.0" />
+                                            </HBox.margin>
+                                        </Label>
+                                        <TextField fx:id="zkClientAddress" prefHeight="28.0" promptText="127.0.0.1:2181">
+                                            <tooltip>
+                                                <Tooltip text="Zookeeper连接串 例：127.0.0.1:2181" />
+                                            </tooltip>
+                                        </TextField>
+                                        <ComboBox fx:id="fileType" prefHeight="28.0" promptText="pom文件" />
+                                        <TextField fx:id="servicePom" prefHeight="28.0" prefWidth="412.0" promptText="接口(或实现类）所在项目的pom文件或包含项目所有jar的文件夹">
+                                            <tooltip>
+                                                <Tooltip text="接口实现所在项目的pom文件" />
+                                            </tooltip>
+                                        </TextField>
+                                        <CheckBox fx:id="noImplBox" mnemonicParsing="false" prefHeight="28.0" selected="true" text="不分析参数名称" />
+                                        <Button mnemonicParsing="false" onAction="#openFileChooserBtn" prefHeight="28.0" prefWidth="49.0" text="浏览" />
+                                        <Button mnemonicParsing="false" onAction="#clearCache" prefHeight="28.0" text="清空依赖缓存">
+                                            <tooltip>
+                                                <Tooltip text="当项目依赖发生变更时建议清空缓存，清空缓存后首次点击service列表时重新分析项目依赖关系。" />
+                                            </tooltip>
+                                        </Button>
+                                        <Button mnemonicParsing="false" onAction="#connectZKBtn" prefHeight="28.0" text="连接" />
+                                    </children>
+                                    <padding>
+                                        <Insets left="5.0" />
+                                    </padding>
+                                </HBox>
+                                <HBox alignment="CENTER_LEFT" layoutX="-66.0" layoutY="25.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="200.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="31.0">
+                                    <children>
+                                        <ComboBox fx:id="filterType" onAction="#serviceFilterKeyUp" prefHeight="28.0" prefWidth="78.0" />
+                                        <TextField fx:id="serviceFilter" onKeyReleased="#serviceFilterKeyUp" prefHeight="28.0" promptText="根据所选类型筛选service" />
+                                        <Label prefHeight="28.0" text="提供者地址 " />
+                                        <ComboBox fx:id="providerIP" prefHeight="28.0" prefWidth="199.0" />
+                                        <Label prefHeight="28.0" text="请求超时" />
+                                        <TextField fx:id="timeout" prefHeight="28.0" prefWidth="89.0" promptText="默认1000毫秒" text="15000" />
+                              <Label layoutX="537.0" layoutY="11.0" prefHeight="28.0" text="dubbo版本" />
+                              <ComboBox fx:id="dubboVersionBox" onAction="#changeDubboVersion" prefHeight="28.0" prefWidth="121.0" />
+                                        <Button mnemonicParsing="false" onMouseClicked="#invokeAction" prefHeight="28.0" text="调用" />
+                                        <CheckBox fx:id="wrapText" mnemonicParsing="false" onAction="#wrapTextCheckBox" prefHeight="28.0" selected="true" text="自动换行" />
+                                    </children>
+                                    <padding>
+                                        <Insets left="5.0" />
+                                    </padding>
+                                </HBox>
+                                <SplitPane dividerPositions="0.235936188077246, 0.47439126784214947, 0.6767422334172963" layoutY="73.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="63.0">
+                                    <items>
+                                        <ListView fx:id="serviceList" onMouseClicked="#serviceListClick" />
+                                        <ListView fx:id="serviceMethods" onMouseClicked="#serviceMethodClick" />
+                                        <TextArea fx:id="requestArea" wrapText="true" />
+                                        <TextArea fx:id="responseArea" wrapText="true" />
+                                    </items>
+                                    <opaqueInsets>
+                                        <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                                    </opaqueInsets>
+                                </SplitPane>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="接口调试">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <SplitPane dividerPositions="0.20067170445004198" layoutX="7.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <items>
+                                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                            <children>
+                                                <HBox alignment="CENTER" layoutX="14.0" layoutY="7.0" prefHeight="30.0" prefWidth="236.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                    <children>
+                                                        <TextField fx:id="historyFilter" onKeyReleased="#historyFilterKeyUp" prefHeight="28.0" prefWidth="235.0" promptText="筛选历史记录(列表双击可删除选中记录)" />
+                                                    </children>
+                                                </HBox>
+                                                <ListView fx:id="httpHistory" layoutY="57.0" onMouseClicked="#historyListClick" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0" />
+                                            </children>
+                                        </AnchorPane>
+                                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                            <children>
+                                                <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="200.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="31.0">
+                                                    <children>
+                                                        <ComboBox fx:id="contentType" prefHeight="28.0" prefWidth="254.0" />
+                                                        <ComboBox fx:id="useragent" prefHeight="28.0" prefWidth="117.0" />
+                                                        <ComboBox fx:id="httpTimeout" prefHeight="28.0" prefWidth="78.0" />
+                                                        <ComboBox fx:id="charset" prefHeight="28.0" prefWidth="108.0" />
+                                                        <CheckBox fx:id="replaceVar" mnemonicParsing="false" prefHeight="28.0" text="变更替换" />
+                                                        <CheckBox fx:id="wrapTextHttp" mnemonicParsing="false" onAction="#wrapTextCheckBoxHttp" prefHeight="28.0" selected="true" text="自动换行" />
+                                                        <TextField fx:id="alias" prefHeight="28.0" promptText="取个别名" />
+                                                        <Button mnemonicParsing="false" onAction="#sendAction" prefHeight="28.0" text="Send" />
+                                                    </children>
+                                                    <padding>
+                                                        <Insets left="5.0" />
+                                                    </padding>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" layoutX="48.0" layoutY="23.0" prefHeight="30.0" prefWidth="200.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                    <children>
+                                                        <ComboBox fx:id="requestMethod" prefHeight="28.0" prefWidth="73.0" />
+                                                        <TextField fx:id="requestUrl" prefHeight="28.0" prefWidth="807.0" promptText="请求地址 " />
+                                                    </children>
+                                                    <padding>
+                                                        <Insets left="5.0" />
+                                                    </padding>
+                                                </HBox>
+                                                <SplitPane dividerPositions="0.12627986348122866, 0.4522184300341297" layoutY="30.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="62.0">
+                                                    <items>
+                                                        <TextArea fx:id="header" prefHeight="200.0" prefWidth="200.0" promptText="头部参数，格式：Referer=https://www.baidu.com/&amp;X-Requested-With=XMLHttpRequest&amp;User-Agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36" />
+                                                        <TextArea fx:id="requestBody" prefHeight="200.0" prefWidth="200.0" promptText="请求参数,格式:userId=365214&amp;pws=362541&amp;once=UUID,动态参数即为特定的参数值在请求时被动态替换成指定值。支持参数值有${UUID}替换为不带-号的uuid,${date}替换为当前日期(yyyy-MM-dd),${time}替换为当前时间(HH:mm:ss),${datetime}替换为当前时间(yyyy-MM-dd HH:mm:ss),${random}替换为当前时间毫秒值" />
+                                                        <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+                                                            <tabs>
+                                                                <Tab text="PrettyBody">
+                                                                    <content>
+                                                                        <TextArea fx:id="prettyBody" prefHeight="243.0" prefWidth="947.0" promptText="输出窗口" />
+                                                                    </content>
+                                                                </Tab>
+                                                                <Tab text="ResponseBody">
+                                                                    <content>
+                                                                        <TextArea fx:id="responseBody" prefHeight="243.0" prefWidth="947.0" promptText="输出窗口" />
+                                                                    </content>
+                                                                </Tab>
+                                                                <Tab text="PreviewBody">
+                                                                    <content>
+                                                                        <WebView fx:id="previewBody" prefHeight="200.0" prefWidth="200.0" />
+                                                                    </content>
+                                                                </Tab>
+                                                                <Tab text="ResponseHeaders">
+                                                                    <content>
+                                                                        <TextArea fx:id="responseHeader" prefHeight="200.0" prefWidth="200.0" promptText="返回头" />
+                                                                    </content>
+                                                                </Tab>
+                                                                <Tab text="requestHeader">
+                                                                    <content>
+                                                                        <TextArea fx:id="requestHeader" prefHeight="200.0" prefWidth="200.0" promptText="请求头" />
+                                                                    </content>
+                                                                </Tab>
+                                                                <Tab text="showDoc">
+                                                                    <content>
+                                                                        <TextArea fx:id="showDoc" prefHeight="200.0" prefWidth="200.0" promptText="showDoc  api 文档" />
+                                                                    </content>
+                                                                </Tab>
+                                                            </tabs>
+                                                        </TabPane>
+                                                    </items>
+                                                </SplitPane>
+                                            </children>
+                                        </AnchorPane>
+                                    </items>
+                                    <opaqueInsets>
+                                        <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                                    </opaqueInsets>
+                                </SplitPane>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="格式与转换">
+                    <content>
+                        <AnchorPane>
+                            <children>
+                                <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="-36.0" prefHeight="30.0" prefWidth="584.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
+                                    <children>
+                                        <ComboBox fx:id="operSelect" onAction="#operSelectChange" prefHeight="28.0" prefWidth="150.0" />
+                                        <Button mnemonicParsing="false" onAction="#formatOrConvert" prefHeight="28.0" text="美化" />
+                                        <CheckBox fx:id="wrapTextFormat" mnemonicParsing="false" onAction="#wrapTextCheckBoxFormat" prefHeight="28.0" selected="true" text="自动换行" />
+                                    </children>
+                                    <padding>
+                                        <Insets left="5.0" />
+                                    </padding>
+                                </HBox>
+                                <SplitPane fx:id="formatSplitPane" dividerPositions="0.5, 0.5" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="33.0">
+                                    <items>
+                                        <TextArea fx:id="formatSource" prefHeight="200.0" prefWidth="200.0" />
+                                        <VBox fx:id="operBox" alignment="CENTER" maxWidth="30.0" minWidth="30.0" prefWidth="30.0" spacing="10.0">
+                                            <children>
+                                                <Button mnemonicParsing="false" onAction="#sourceToTarget" text="→" textAlignment="CENTER" />
+                                                <Button layoutX="17.0" layoutY="291.0" mnemonicParsing="false" onAction="#targetToSource" text="←" />
+                                            </children>
+                                        </VBox>
+                                        <TextArea fx:id="formatTarget" prefHeight="200.0" prefWidth="200.0" />
+                                    </items>
+                                    <opaqueInsets>
+                                        <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                                    </opaqueInsets>
+                                </SplitPane>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="文本转java">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <HBox alignment="CENTER_LEFT" layoutX="35.0" layoutY="14.0" prefHeight="30.0" prefWidth="200.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <children>
+                                        <ComboBox fx:id="generateType" prefHeight="28.0" prefWidth="69.0" promptText="实体" />
+                                        <CheckBox fx:id="jsonField" mnemonicParsing="false" prefHeight="28.0" text="\@JSONField" />
+                                        <CheckBox layoutX="166.0" layoutY="10.0" mnemonicParsing="false" prefHeight="28.0" text="\@XmlEnumValue" fx:id="xmlField" />
+                                        <TextField fx:id="eumPrefix" prefHeight="28.0" prefWidth="95.0" promptText="枚举前缀" />
+                                        <TextField fx:id="fieldSplit" prefHeight="28.0" prefWidth="95.0" promptText="字段分隔符" />
+                                        <CheckBox fx:id="wrapTextToJava" mnemonicParsing="false" onAction="#wrapTextCheckBoxJava" prefHeight="28.0" selected="true" text="自动换行" />
+                                        <Button mnemonicParsing="false" onAction="#insertExample" text="插入例子" />
+                                        <Button mnemonicParsing="false" onAction="#generateAction" prefHeight="28.0" text="生成" />
+                                    </children>
+                                    <padding>
+                                        <Insets left="5.0" />
+                                    </padding>
+                                </HBox>
+                                <SplitPane dividerPositions="0.5" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="31.0">
+                                    <items>
+                                        <TextArea fx:id="inputText" prefHeight="200.0" prefWidth="200.0" />
+                                        <TextArea fx:id="outputJava" prefHeight="200.0" prefWidth="200.0" />
+                                    </items>
+                                    <padding>
+                                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                    </padding>
+                                </SplitPane>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="redis">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <HBox alignment="CENTER_LEFT" layoutX="7.0" prefHeight="30.0" prefWidth="200.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <children>
+                                        <Label prefHeight="28.0" text="地址" />
+                                        <TextField fx:id="redisAddr" prefHeight="28.0" />
+                                        <Label layoutX="10.0" layoutY="11.0" prefHeight="28.0" text="端口" />
+                                        <TextField fx:id="redisPort" layoutX="34.0" layoutY="11.0" prefHeight="28.0" prefWidth="62.0" promptText="6379" />
+                                        <Label layoutX="195.0" layoutY="11.0" prefHeight="28.0" text="密码" />
+                                        <PasswordField fx:id="redisPwd" prefHeight="28.0" />
+                                        <Button mnemonicParsing="false" onAction="#redisConnect" prefHeight="28.0" text="连接" />
+                                    </children>
+                                    <padding>
+                                        <Insets left="5.0" />
+                                    </padding>
+                                </HBox>
+                                <TitledPane fx:id="redisDatabase" layoutY="48.0" prefHeight="557.0" prefWidth="157.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="31.0">
+                                    <content>
+                                        <ListView fx:id="redisDatabaseList" prefHeight="533.0" prefWidth="156.0" />
+                                    </content>
+                                </TitledPane>
+                                <TabPane fx:id="redisTabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="158.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="31.0">
+                                    <tabs>
+                                        <Tab closable="false" text="系统信息">
+                                            <content>
+                                                <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                                    <children>
+                                                        <HBox alignment="CENTER_LEFT" layoutX="6.0" layoutY="7.0" prefHeight="30.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                            <children>
+                                                                <Button mnemonicParsing="false" onAction="#redisRefreshInfo" prefHeight="28.0" text="刷新" />
+                                                            </children>
+                                                            <opaqueInsets>
+                                                                <Insets />
+                                                            </opaqueInsets>
+                                                            <padding>
+                                                                <Insets left="5.0" />
+                                                            </padding>
+                                                        </HBox>
+                                                        <TableView fx:id="redisInfoTable" layoutY="28.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="32.0" />
+                                                        <Pagination fx:id="pagination" layoutX="-3.0" pageCount="1" prefHeight="58.0" prefWidth="984.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                                        <HBox alignment="CENTER_LEFT" layoutX="-62.0" layoutY="431.0" prefHeight="45.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+                                                            <children>
+                                                                <ComboBox fx:id="pageSizeBox" onAction="#pageSizeBoxChange" prefHeight="30.0" prefWidth="65.0" promptText="100" />
+                                                            </children>
+                                                        </HBox>
+                                                    </children>
+                                                </AnchorPane>
+                                            </content>
+                                        </Tab>
+                                        <Tab closable="false" text="实时监控">
+                                            <content>
+                                                <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                                    <children>
+                                                        <HBox alignment="CENTER_LEFT" layoutX="6.0" layoutY="7.0" prefHeight="30.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                            <children>
+                                                                <CheckBox fx:id="redisAutoRefreshBox" mnemonicParsing="false" onAction="#changeRefresh" prefHeight="28.0" selected="true" text="自动刷新(10s)" />
+                                                                <Button mnemonicParsing="false" onAction="#redisRefreshChar" prefHeight="28.0" text="刷新" />
+                                                            </children>
+                                                            <opaqueInsets>
+                                                                <Insets />
+                                                            </opaqueInsets>
+                                                            <padding>
+                                                                <Insets left="5.0" />
+                                                            </padding>
+                                                        </HBox>
+                                                        <GridPane alignment="CENTER" prefHeight="65.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="32.0">
+                                                            <columnConstraints>
+                                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                            </columnConstraints>
+                                                            <rowConstraints>
+                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            </rowConstraints>
+                                                            <children>
+                                                                <Label fx:id="memeryLabel" alignment="CENTER" prefHeight="58.0" prefWidth="190.0" styleClass="lightblue-border" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                                                <Label fx:id="totalKeyLabel" alignment="CENTER" prefHeight="58.0" prefWidth="190.0" styleClass="lightblue-border" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                                                <Label fx:id="clientLabel" alignment="CENTER" prefHeight="58.0" prefWidth="190.0" styleClass="lightblue-border" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                                                <Label fx:id="commandLabel" alignment="CENTER" prefHeight="58.0" prefWidth="190.0" styleClass="lightblue-border" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                                                <Label fx:id="cpuLabel" alignment="CENTER" prefHeight="58.0" prefWidth="190.0" styleClass="lightblue-border" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                                                    <GridPane.margin>
+                                                                        <Insets />
+                                                                    </GridPane.margin>
+                                                                </Label>
+                                                            </children>
+                                                        </GridPane>
+                                                        <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="99.0">
+                                                            <tabs>
+                                                                <Tab text="内存">
+                                                                    <content>
+                                                                        <GridPane>
+                                                                            <columnConstraints>
+                                                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                            </columnConstraints>
+                                                                            <rowConstraints>
+                                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                            </rowConstraints>
+                                                                            <children>
+                                                                                <LineChart fx:id="memeryChart" prefHeight="215.0" prefWidth="495.0" title="used memory">
+                                                                                    <xAxis>
+                                                                                        <CategoryAxis side="BOTTOM" />
+                                                                                    </xAxis>
+                                                                                    <yAxis>
+                                                                                        <NumberAxis side="LEFT" />
+                                                                                    </yAxis>
+                                                                                </LineChart>
+                                                                                <LineChart fx:id="memeryChart1" prefHeight="215.0" prefWidth="495.0" title="mem fragmentation ratio" GridPane.columnIndex="1">
+                                                                                    <xAxis>
+                                                                                        <CategoryAxis side="BOTTOM" />
+                                                                                    </xAxis>
+                                                                                    <yAxis>
+                                                                                        <NumberAxis side="LEFT" />
+                                                                                    </yAxis>
+                                                                                </LineChart>
+                                                                            </children>
+                                                                        </GridPane>
+                                                                    </content>
+                                                                </Tab>
+                                                                <Tab text="CPU">
+                                                                    <content>
+                                                                        <GridPane>
+                                                                            <children>
+                                                                                <LineChart fx:id="cpuChart" prefHeight="215.0" prefWidth="495.0" title="used cpu sys">
+                                                                                    <xAxis>
+                                                                                        <CategoryAxis side="BOTTOM" />
+                                                                                    </xAxis>
+                                                                                    <yAxis>
+                                                                                        <NumberAxis side="LEFT" />
+                                                                                    </yAxis>
+                                                                                </LineChart>
+                                                                                <LineChart fx:id="cpuChart1" prefHeight="215.0" prefWidth="495.0" title="used cpu user" GridPane.columnIndex="1">
+                                                                                    <xAxis>
+                                                                                        <CategoryAxis side="BOTTOM" />
+                                                                                    </xAxis>
+                                                                                    <yAxis>
+                                                                                        <NumberAxis side="LEFT" />
+                                                                                    </yAxis>
+                                                                                </LineChart>
+                                                                            </children>
+                                                                            <columnConstraints>
+                                                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                            </columnConstraints>
+                                                                            <rowConstraints>
+                                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                            </rowConstraints>
+                                                                        </GridPane>
+                                                                    </content>
+                                                                </Tab>
+                                                                <Tab text="QPS">
+                                                                    <content>
+                                                                        <GridPane>
+                                                                            <children>
+                                                                                <LineChart fx:id="qpsChart" prefHeight="215.0" prefWidth="495.0" title="total commands processed per sec">
+                                                                                    <xAxis>
+                                                                                        <CategoryAxis side="BOTTOM" />
+                                                                                    </xAxis>
+                                                                                    <yAxis>
+                                                                                        <NumberAxis side="LEFT" />
+                                                                                    </yAxis>
+                                                                                </LineChart>
+                                                                                <LineChart fx:id="qpsChart1" prefHeight="215.0" prefWidth="495.0" title="instantaneous ops per sec" GridPane.columnIndex="1">
+                                                                                    <xAxis>
+                                                                                        <CategoryAxis side="BOTTOM" />
+                                                                                    </xAxis>
+                                                                                    <yAxis>
+                                                                                        <NumberAxis side="LEFT" />
+                                                                                    </yAxis>
+                                                                                </LineChart>
+                                                                            </children>
+                                                                            <columnConstraints>
+                                                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                            </columnConstraints>
+                                                                            <rowConstraints>
+                                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                            </rowConstraints>
+                                                                        </GridPane>
+                                                                    </content>
+                                                                </Tab>
+                                                                <Tab text="网络">
+                                                                    <content>
+                                                                        <GridPane>
+                                                                            <columnConstraints>
+                                                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                            </columnConstraints>
+                                                                            <rowConstraints>
+                                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                            </rowConstraints>
+                                                                            <children>
+                                                                                <LineChart fx:id="networkChart" prefHeight="215.0" prefWidth="495.0" title="total net input bytes per sec">
+                                                                                    <xAxis>
+                                                                                        <CategoryAxis side="BOTTOM" />
+                                                                                    </xAxis>
+                                                                                    <yAxis>
+                                                                                        <NumberAxis side="LEFT" />
+                                                                                    </yAxis>
+                                                                                </LineChart>
+                                                                                <LineChart fx:id="networkChart1" prefHeight="215.0" prefWidth="495.0" title="total net output bytes per sec" GridPane.columnIndex="1">
+                                                                                    <xAxis>
+                                                                                        <CategoryAxis side="BOTTOM" />
+                                                                                    </xAxis>
+                                                                                    <yAxis>
+                                                                                        <NumberAxis side="LEFT" />
+                                                                                    </yAxis>
+                                                                                </LineChart>
+                                                                            </children>
+                                                                        </GridPane>
+                                                                    </content>
+                                                                </Tab>
+                                                            </tabs>
+                                                        </TabPane>
+                                                    </children>
+                                                </AnchorPane>
+                                            </content>
+                                        </Tab>
+                                        <Tab closable="false" text="DB0">
+                                            <content>
+                                                <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                                    <children>
+                                                        <HBox alignment="CENTER_LEFT" layoutX="6.0" layoutY="7.0" prefHeight="30.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                            <children>
+                                                                <TextField fx:id="redisSearchKey" prefHeight="28.0" promptText="key模糊查询" />
+                                                                <Button mnemonicParsing="false" onAction="#searchKeyFromRedis" prefHeight="28.0" text="查询|刷新" />
+                                                                <Button mnemonicParsing="false" onAction="#addRedisKey" prefHeight="28.0" text="添加" />
+                                                                <Button layoutX="226.0" layoutY="11.0" mnemonicParsing="false" onAction="#deleteRedisKey" prefHeight="28.0" text="删除">
+                                                                    <tooltip>
+                                                                        <Tooltip text="按住shift或ctrl多选" />
+                                                                    </tooltip>
+                                                                </Button>
+                                                                <Button layoutX="271.0" layoutY="11.0" mnemonicParsing="false" onAction="#modifyRedisKey" prefHeight="28.0" text="修改" />
+                                                            </children>
+                                                            <opaqueInsets>
+                                                                <Insets />
+                                                            </opaqueInsets>
+                                                            <padding>
+                                                                <Insets left="5.0" />
+                                                            </padding>
+                                                        </HBox>
+                                                        <TableView fx:id="redisValueTable" layoutY="28.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="32.0" />
+                                                        <Pagination fx:id="paginationForValue" layoutX="-3.0" pageCount="1" prefHeight="58.0" prefWidth="984.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                                        <HBox alignment="CENTER_LEFT" layoutX="-62.0" layoutY="431.0" prefHeight="45.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+                                                            <children>
+                                                                <ComboBox fx:id="pageSizeBoxForValue" onAction="#pageSizeBoxChangeForValue" prefHeight="30.0" prefWidth="65.0" promptText="100" />
+                                                            </children>
+                                                        </HBox>
+                                                    </children>
+                                                </AnchorPane>
+                                            </content>
+                                        </Tab>
+                                    </tabs>
+                                </TabPane>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+        <GridPane maxHeight="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="595.0" minWidth="10.0" prefWidth="283.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="931.0" minWidth="10.0" prefWidth="917.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Label fx:id="listViewStatusLabel" prefHeight="28.0" prefWidth="200.0">
+                    <padding>
+                        <Insets left="10.0" />
+                    </padding>
+                </Label>
+                <WebView fx:id="adWeb" minHeight="-1.0" minWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" GridPane.columnIndex="1" />
+            </children>
+        </GridPane>
+    </children>
+</AnchorPane>

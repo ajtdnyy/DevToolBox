@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import java.net.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="574.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lcw.controller.RedisController">
+    <stylesheets>
+        <URL value="@/styles/redisOper.css" />
+    </stylesheets>
+    <children>
+        <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="200.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
+            <children>
+                <Label prefHeight="28.0" text="key">
+                    <padding>
+                        <Insets left="27.0" />
+                    </padding>
+                </Label>
+                <TextField fx:id="redisKey" prefHeight="28.0" prefWidth="492.0" />
+            </children>
+            <padding>
+                <Insets left="5.0" />
+            </padding>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="200.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="62.0">
+            <children>
+                <Label prefHeight="28.0" text="过期时间" />
+                <TextField fx:id="expireTime" prefHeight="28.0" prefWidth="141.0" promptText="单位:秒   -1秒永不过期" />
+            </children>
+            <padding>
+                <Insets left="5.0" />
+            </padding>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="200.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="94.0">
+            <children>
+                <Label prefHeight="28.0" text="type">
+                    <padding>
+                        <Insets left="23.0" />
+                    </padding>
+                </Label>
+                <ComboBox fx:id="typeBox" prefHeight="28.0" prefWidth="140.0" />
+            </children>
+            <padding>
+                <Insets left="5.0" />
+            </padding>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" layoutY="107.0" prefHeight="244.0" prefWidth="600.0" spacing="5.0" AnchorPane.bottomAnchor="38.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="127.0">
+            <children>
+                <Label prefHeight="28.0" text="value">
+                    <padding>
+                        <Insets left="18.0" />
+                    </padding>
+                </Label>
+                <TextArea fx:id="redisValue" prefHeight="266.0" prefWidth="492.0" wrapText="true" />
+            </children>
+            <padding>
+                <Insets left="5.0" />
+            </padding>
+        </HBox>
+        <HBox alignment="CENTER" layoutY="294.0" prefHeight="36.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <children>
+                <Button mnemonicParsing="false" onAction="#submitRedis" prefHeight="28.0" text="确认" />
+            </children>
+        </HBox>
+        <AnchorPane prefHeight="27.0" prefWidth="200.0" style="-fx-background-color: #2e569f;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+    </children>
+</AnchorPane>

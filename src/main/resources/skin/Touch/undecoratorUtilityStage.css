@@ -1,0 +1,107 @@
+/**
+ * Copyright 2014-2016 Arnaud Nouard. All rights reserved.
+ *
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * * Redistributions of source code must retain the above copyright notice, this
+ *   list of conditions and the following disclaimer.
+ *
+ * * Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+/* 
+    Document   : Undecorator
+    Created on : Dec 19, 2014
+    Author     : In-SideFX
+    Description:
+        Demo app purpose
+*/
+
+/*
+    The Stage background.
+    Currently a Rectangle node
+*/
+
+.decoration-background{
+    -fx-fill: rgba(255,255,255,0.9);
+    -fx-stroke-width: 0;
+    -fx-arc-width:20px;
+    -fx-arc-height:20px;
+}
+
+.decoration-shadow{
+    -fx-fill: black;
+    -fx-stroke-width: 0;
+    -fx-arc-width:20px;
+    -fx-arc-height:20px;
+}
+
+.decoration-resize{
+    -fx-fill:null;  /* avoid mouse events in the middle*/
+    -fx-border-color: transparent;
+    -fx-border-width: 7;
+    -fx-border-insets: 0;
+}
+/*
+    The title bar label
+*/
+/*.undecorator-label-titlebar{
+    -fx-text-fill: #000000;
+}*/
+/*
+*	Menu button
+*/
+.decoration-button-menu{
+    -fx-background-radius: 0;
+    -fx-border-style: null;
+    -fx-background-color: null;
+    -fx-background-image:url("./menu.png");
+    -fx-background-size: stretch;
+}
+
+.decoration-button-menu:hover{
+    -fx-background-color: null;
+    -fx-background-image:url("./menu-hover.png");
+    -fx-background-size: stretch;
+}
+
+/*
+*	Close button
+*/
+.decoration-button-close{
+    -fx-background-radius: 0;
+    -fx-border-style: null;
+    -fx-background-color: null;
+    -fx-background-image:url("./close.png");
+    -fx-background-size: stretch;
+}
+.decoration-button-close:hover{
+    -fx-background-color: null;
+    -fx-background-image:url("./close-hover.png");
+    -fx-background-size: stretch;
+}
+
+/*
+*	Resize button
+*/
+.decoration-button-resize{
+    -fx-background-radius: 0;
+    -fx-border-style: null;
+    -fx-background-color: null;
+    -fx-background-image:url("./resizeSE.png");
+}

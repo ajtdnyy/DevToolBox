@@ -1,0 +1,62 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+    -fx-border-color: #99ccff;
+    -fx-border-width: 2px;
+}
+.logo{
+    -fx-image:url("./in-sidefx.png");
+}
+.logo-label{
+    -fx-font-weight:bold;
+    -fx-text-fill: whitesmoke;
+}
+.clientarea-background{
+    -fx-background-color: transparent;
+}
+.undecorator-label-titlebar{
+    -fx-font-weight:bold;
+    -fx-text-fill: whitesmoke;
+}
+/*
+    The Stage background.
+    Currently a Rectangle node
+*/
+.decoration-background{
+    /*    -fx-fill: radial-gradient(focus-angle 45deg, focus-distance 20%, center 25% 25%, radius 50%, reflect, #eeeeee88, #aaaaaa88 75%, gray);
+    */
+    -fx-stroke-width: 0;
+    -fx-arc-width:7px;
+    -fx-arc-height:7px;
+}
+/*
+    Defines the rectangle responsible for the shadow
+*/
+.decoration-shadow{
+    -fx-fill: black;
+    -fx-stroke-width: 0;
+    -fx-arc-width:7px;
+    -fx-arc-height:7px;
+}
+/*
+ Used to declare the definition of stage resize zone
+*/
+.decoration-resize{
+    -fx-fill:null;  /* avoid mouse events in the middle*/
+    -fx-border-color: transparent;
+    -fx-border-width: 7;
+    -fx-border-insets: 0;
+}
+
+.lightblue-border{
+    -fx-border-radius: 3px;
+    -fx-border-color: lightblue;
+    -fx-border-style: solid;
+}
+.lightgrey-border{
+    -fx-border-color: lightgrey;
+    -fx-border-style: solid;
+    -fx-border-radius: 3px;
+}

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import java.net.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="290.0" prefWidth="506.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lcw.controller.FeedbackController">
+    <stylesheets>
+        <URL value="@/styles/feedback.css" />
+    </stylesheets>
+    <children>
+        <AnchorPane prefHeight="27.0" prefWidth="200.0" style="-fx-background-color: #2e569f;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+        <HBox alignment="CENTER_LEFT" layoutY="8.0" prefHeight="30.0" prefWidth="200.0" spacing="3.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
+            <children>
+                <Label prefHeight="28.0" text="标题">
+                    <opaqueInsets>
+                        <Insets />
+                    </opaqueInsets>
+                </Label>
+                <TextField fx:id="feedbackTitle" prefHeight="28.0" prefWidth="280.0" promptText="简要描述" />
+            </children>
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+            <padding>
+                <Insets left="3.0" />
+            </padding>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="12.0" prefHeight="30.0" prefWidth="200.0" spacing="3.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="63.0">
+            <children>
+                <Label prefHeight="28.0" text="邮箱">
+                    <opaqueInsets>
+                        <Insets />
+                    </opaqueInsets>
+                </Label>
+                <TextField fx:id="mail" prefHeight="28.0" prefWidth="280.0" promptText="方便的话埴写有效邮箱以便回复" />
+            </children>
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+            <padding>
+                <Insets left="3.0" />
+            </padding>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="69.0" prefHeight="149.0" prefWidth="506.0" spacing="3.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="101.0">
+            <children>
+                <Label prefHeight="28.0" text="内容">
+                    <opaqueInsets>
+                        <Insets />
+                    </opaqueInsets>
+                </Label>
+                <TextArea fx:id="feedbackContent" prefHeight="214.0" prefWidth="474.0" promptText="详细说明情况，说明操作步骤，如何重现等等" />
+            </children>
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+            <padding>
+                <Insets left="3.0" />
+            </padding>
+        </HBox>
+        <HBox alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="30.0" prefWidth="200.0" spacing="3.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+            <padding>
+                <Insets left="3.0" />
+            </padding>
+            <children>
+                <Button mnemonicParsing="false" onAction="#submitFeedback" prefHeight="28.0" text="提交" />
+            </children>
+        </HBox>
+    </children>
+</AnchorPane>
