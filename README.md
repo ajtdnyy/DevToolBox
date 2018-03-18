@@ -17,10 +17,12 @@
 
 # 软件简介 
 
-1.下图所示，dubbo接口调试。
+1. 下图所示，dubbo接口调试。
 ![image](http://www.vbox.top/wp-content/uploads/2017/08/dubbo.jpg)
-2.HTTP接口调试。
+
+2. HTTP接口调试。
 ![image](http://www.vbox.top/wp-content/uploads/2017/08/tpl.jpg)
-3.redis数据查看与管理
+
+3. redis数据查看与管理
 
 # <a href='http://www.vbox.top?from=githubdvb' target='_blank'>ajtdnyy的博客</a>
