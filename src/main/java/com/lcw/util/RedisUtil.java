@@ -2,7 +2,9 @@ package com.lcw.util;
 
 import com.lcw.eum.RedisDataType;
 import com.lcw.model.NotSqlEntity;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -29,6 +31,7 @@ public class RedisUtil {
     public static String ip;
     public static String port;
     public static String pwd;
+    private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     public static JedisPool initPool(String ip, String port, String pwd) {
         if (pool == null) {
@@ -323,6 +326,13 @@ public class RedisUtil {
                             ss = ss.substring(0, ss.length() - 1);
                             map.put("value", "[" + ss + "]");
                             break;
+                    }
+                    Long expire = jedis.ttl(key);
+                    if (expire > 0) {
+                        expire = expire * 1000 + System.currentTimeMillis();
+                        map.put("expire", dateFormat.format(new Date(expire)));
+                    } else {
+                        map.put("expire", "");
                     }
                     list.add(map);
                 } else {
