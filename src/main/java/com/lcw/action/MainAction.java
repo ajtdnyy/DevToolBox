@@ -708,7 +708,7 @@ public class MainAction {
         if (requestData != null) {
             mc.httpHistory.getItems().addAll(requestData.getRequest());
         } else {
-            new File(JaxbUtil.HTTP_CONFIG_FILE).delete();
+            new File(JaxbUtil.HTTP_CONFIG_FILE).renameTo(new File(JaxbUtil.HTTP_CONFIG_FILE + "_" + System.currentTimeMillis() + ".bak"));
             requestData = new HttpRequestData();
         }
         mc.formatSplitPane.getItems().remove(mc.operBox);
@@ -772,7 +772,7 @@ public class MainAction {
         mc.redisDatabaseList.getSelectionModel().selectedIndexProperty().addListener((idx) -> {
             redisSelectDatabase();
         });
-        mc.redisValueTable.getColumns().addAll(getColumn("key", "key"), getColumn("type", "type"), getColumn("value", "value"));
+        mc.redisValueTable.getColumns().addAll(getColumn("key", "key"), getColumn("type", "type", 60d), getColumn("value", "value", 575d), getColumn("expire", "expire", 150d));
         mc.redisValueTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         mc.pageSizeBoxForValue.getItems().addAll(10, 20, 30, 40, 50, 100);
         mc.pageSizeBoxForValue.getSelectionModel().select(1);
@@ -831,9 +831,13 @@ public class MainAction {
     }
 
     private TableColumn getColumn(String name, String key) {
+        return getColumn(name, key, 250d);
+    }
+
+    private TableColumn getColumn(String name, String key, double width) {
         TableColumn attr = new TableColumn(name);
         attr.setCellValueFactory(new MapValueFactory<>(key));
-        attr.setPrefWidth(250d);
+        attr.setPrefWidth(width);
         return attr;
     }
 
@@ -1179,6 +1183,12 @@ public class MainAction {
         }
     }
 
+    private void cancelTimerAndRelease() {
+        timer.cancel();
+        timer = new Timer();
+        RedisUtil.pool = null;
+    }
+
     public void redisConnectAction() {
         try {
             String rdaddr = mc.redisAddr.getText();
@@ -1192,6 +1202,7 @@ public class MainAction {
             }
             String pwd = mc.redisPwd.getText();
             saveSetting();
+            RedisUtil.pool = null;
             RedisUtil.initPool(rdaddr, rdport, pwd);
             redisRefreshInfoAction();
             List<String> dbs = DataAccessUtil.getAllDataBaseForReids();
@@ -1213,6 +1224,7 @@ public class MainAction {
                 }
             }, 0, 10000);
         } catch (Exception ex) {
+            cancelTimerAndRelease();
             Toast.makeText("获取redis信息异常" + ex.getLocalizedMessage()).show(mc.pane.getScene().getWindow());
             LOGGER.error("获取redis信息异常", ex);
         }
@@ -1263,6 +1275,7 @@ public class MainAction {
             mc.pagination.setPageCount(pageCount);
             Toast.makeText("刷新成功", Duration.seconds(1)).show(mc.pane.getScene().getWindow());
         } catch (Exception ex) {
+            cancelTimerAndRelease();
             Toast.makeText("获取redis信息异常" + ex.getLocalizedMessage()).show(mc.pane.getScene().getWindow());
             LOGGER.error("获取redis信息异常", ex);
         }
@@ -1451,6 +1464,7 @@ public class MainAction {
             outputPerSec = output;
             second = System.currentTimeMillis();
         } catch (Exception ex) {
+            cancelTimerAndRelease();
             LOGGER.error("刷新数据异常", ex);
             Toast.makeText("刷新数据异常" + ex.getLocalizedMessage()).show(mc.pane.getScene().getWindow());
         }
