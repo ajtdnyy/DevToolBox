@@ -248,7 +248,7 @@ public class MainAction {
                         Method md = mm.getInterfacMethod();
                         String to = mc.timeout.getText();
                         String ip = (String) mc.providerIP.getSelectionModel().getSelectedItem();
-                        Object o = DubboUtil.invoke(loader.loadClass(item.getInterfaceFullName()), md, item.getUrl(to, ip), JSON.parse(json, md.getParameterTypes()));
+                        Object o = DubboUtil.invoke(loader.loadClass(item.getInterfaceFullName()), md, item.getUrl(to, ip), com.alibaba.fastjson.JSON.parseArray(json, md.getParameterTypes()).toArray());
                         Platform.runLater(() -> {
                             mc.responseArea.setText(o != null ? Formatter.formatDubboParam(o.toString()) : "");
                             DialogUtil.close();
