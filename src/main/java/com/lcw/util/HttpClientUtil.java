@@ -122,20 +122,21 @@ public class HttpClientUtil {
                 MultipartEntityBuilder builder = MultipartEntityBuilder.create();
                 builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
                 for (String str : tmp) {
-                    str = str.replaceAll("==", "##");
-                    String[] tt = str.split("=");
-                    if (tt.length == 2) {
-                        if (tt[1].startsWith("/") || tt[1].substring(1).startsWith(":")) {
-                            File file = new File(tt[1]);
+                    int idx = str.indexOf("=");
+                    if (idx > 0) {
+                        String t0 = str.substring(0, idx);
+                        String t1 = str.substring(idx + 1);
+                        if (t1.startsWith("/") || t1.substring(1).startsWith(":")) {
+                            File file = new File(t1);
                             if (file.exists()) {
-                                builder.addBinaryBody(tt[0], file);
+                                builder.addBinaryBody(t0, file);
                                 LOGGER.info("文件字段提交:" + str);
                             } else {
-                                builder.addTextBody(tt[0], tt[1]);
+                                builder.addTextBody(t0, t1);
                                 LOGGER.info("文件不存在或误判断为文件，转为普通字段提交:" + str);
                             }
                         } else {
-                            builder.addTextBody(tt[0], tt[1]);
+                            builder.addTextBody(t0, t1);
                         }
                     } else {
                         throw new Exception("错误参数：" + str);
@@ -145,10 +146,9 @@ public class HttpClientUtil {
             } else {
                 String[] tmp = bd.split("&");
                 for (String str : tmp) {
-                    str = str.replaceAll("==", "##");
-                    String[] tt = str.split("=");
-                    if (tt.length == 2) {
-                        parameters.add(new BasicNameValuePair(tt[0], tt[1].replaceAll("##", "==")));
+                    int idx = str.indexOf("=");
+                    if (idx > 0) {
+                        parameters.add(new BasicNameValuePair(str.substring(0, idx), str.substring(idx + 1)));
                     } else {
                         throw new Exception("错误参数：" + str);
                     }
@@ -177,9 +177,9 @@ public class HttpClientUtil {
                 if (str.startsWith(COOKIE)) {
                     base.addHeader(COOKIE, str.replace(COOKIE + "=", ""));
                 } else {
-                    String[] tt = str.split("=");
-                    if (tt.length == 2) {
-                        base.addHeader(tt[0], tt[1]);
+                    int idx = str.indexOf("=");
+                    if (idx > 0) {
+                        base.addHeader(str.substring(0, idx), str.substring(idx + 1));
                     }
                 }
             }

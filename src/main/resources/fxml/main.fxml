@@ -11,7 +11,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="pane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="700.0" minWidth="1200.0" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lcw.controller.MainController">
+<AnchorPane fx:id="pane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="700.0" minWidth="1200.0" prefHeight="700.0" prefWidth="1461.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lcw.controller.MainController">
     <stylesheets>
         <URL value="@/styles/main.css" />
     </stylesheets>
@@ -26,7 +26,6 @@
                                 <MenuItem mnemonicParsing="false" onAction="#showFeedback" text="反馈" />
                                 <MenuItem mnemonicParsing="false" onAction="#showDialog" text="查看加载页" />
                                 <MenuItem mnemonicParsing="false" onAction="#checkUpdate" text="检查更新" />
-                                <MenuItem mnemonicParsing="false" onAction="#showHelp" text="使用说明" />
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="捐助">
@@ -34,6 +33,11 @@
                                 <MenuItem mnemonicParsing="false" onAction="#showQRCode" text="查看二维码" />
                             </items>
                         </Menu>
+                  <Menu mnemonicParsing="false" text="使用说明">
+                    <items>
+                                <MenuItem mnemonicParsing="false" onAction="#showHelp" text="使用说明" />
+                    </items>
+                  </Menu>
                     </menus>
                 </MenuBar>
             </children>
@@ -46,7 +50,7 @@
                             <children>
                                 <HBox alignment="CENTER_LEFT" layoutX="2.0" layoutY="23.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="753.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                     <children>
-                                        <Label prefHeight="28.0" text="注册中心地址">
+                                        <Label prefHeight="28.0" prefWidth="104.0" text="注册中心地址">
                                             <HBox.margin>
                                                 <Insets left="5.0" />
                                             </HBox.margin>
@@ -57,13 +61,13 @@
                                             </tooltip>
                                         </TextField>
                                         <ComboBox fx:id="fileType" prefHeight="28.0" promptText="pom文件" />
-                                        <TextField fx:id="servicePom" prefHeight="28.0" prefWidth="412.0" promptText="接口(或实现类）所在项目的pom文件或包含项目所有jar的文件夹">
+                                        <TextField fx:id="servicePom" prefHeight="30.0" prefWidth="460.0" promptText="接口(或实现类）所在项目的pom文件或包含项目所有jar的文件夹">
                                             <tooltip>
                                                 <Tooltip text="接口实现所在项目的pom文件" />
                                             </tooltip>
                                         </TextField>
-                                        <CheckBox fx:id="noImplBox" mnemonicParsing="false" prefHeight="28.0" selected="true" text="不分析参数名称" />
-                                        <Button mnemonicParsing="false" onAction="#openFileChooserBtn" prefHeight="28.0" prefWidth="49.0" text="浏览" />
+                                        <CheckBox fx:id="noImplBox" mnemonicParsing="false" prefHeight="28.0" prefWidth="142.0" selected="true" text="不分析参数名称" />
+                                        <Button mnemonicParsing="false" onAction="#openFileChooserBtn" prefHeight="30.0" prefWidth="59.0" text="浏览" />
                                         <Button mnemonicParsing="false" onAction="#clearCache" prefHeight="28.0" text="清空依赖缓存">
                                             <tooltip>
                                                 <Tooltip text="当项目依赖发生变更时建议清空缓存，清空缓存后首次点击service列表时重新分析项目依赖关系。" />
@@ -77,15 +81,15 @@
                                 </HBox>
                                 <HBox alignment="CENTER_LEFT" layoutX="-66.0" layoutY="25.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="200.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="31.0">
                                     <children>
-                                        <ComboBox fx:id="filterType" onAction="#serviceFilterKeyUp" prefHeight="28.0" prefWidth="78.0" />
+                                        <ComboBox fx:id="filterType" onAction="#serviceFilterKeyUp" prefHeight="30.0" prefWidth="110.0" />
                                         <TextField fx:id="serviceFilter" onKeyReleased="#serviceFilterKeyUp" prefHeight="28.0" promptText="根据所选类型筛选service" />
-                                        <Label prefHeight="28.0" text="提供者地址 " />
+                                        <Label prefHeight="28.0" prefWidth="116.0" text="提供者地址 " />
                                         <ComboBox fx:id="providerIP" prefHeight="28.0" prefWidth="199.0" />
                                         <Label prefHeight="28.0" text="请求超时" />
-                                        <TextField fx:id="timeout" prefHeight="28.0" prefWidth="89.0" promptText="默认1000毫秒" text="15000" />
-                              <Label layoutX="537.0" layoutY="11.0" prefHeight="28.0" text="dubbo版本" />
-                              <ComboBox fx:id="dubboVersionBox" onAction="#changeDubboVersion" prefHeight="28.0" prefWidth="121.0" />
-                                        <Button mnemonicParsing="false" onMouseClicked="#invokeAction" prefHeight="28.0" text="调用" />
+                                        <TextField fx:id="timeout" prefHeight="30.0" prefWidth="103.0" promptText="默认1000毫秒" text="15000" />
+                              <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="537.0" layoutY="11.0" prefHeight="28.0" prefWidth="85.0" text="dubbo版本" />
+                              <ComboBox fx:id="dubboVersionBox" onAction="#changeDubboVersion" prefHeight="30.0" prefWidth="141.0" />
+                                        <Button mnemonicParsing="false" onMouseClicked="#invokeAction" prefHeight="30.0" prefWidth="58.0" text="调用" />
                                         <CheckBox fx:id="wrapText" mnemonicParsing="false" onAction="#wrapTextCheckBox" prefHeight="28.0" selected="true" text="自动换行" />
                                     </children>
                                     <padding>
@@ -129,7 +133,7 @@
                                                     <children>
                                                         <ComboBox fx:id="contentType" prefHeight="28.0" prefWidth="254.0" />
                                                         <ComboBox fx:id="useragent" prefHeight="28.0" prefWidth="117.0" />
-                                                        <ComboBox fx:id="httpTimeout" prefHeight="28.0" prefWidth="78.0" />
+                                                        <ComboBox fx:id="httpTimeout" prefHeight="30.0" prefWidth="113.0" />
                                                         <ComboBox fx:id="charset" prefHeight="28.0" prefWidth="108.0" />
                                                         <CheckBox fx:id="replaceVar" mnemonicParsing="false" prefHeight="28.0" text="变更替换" />
                                                         <CheckBox fx:id="wrapTextHttp" mnemonicParsing="false" onAction="#wrapTextCheckBoxHttp" prefHeight="28.0" selected="true" text="自动换行" />
@@ -142,8 +146,8 @@
                                                 </HBox>
                                                 <HBox alignment="CENTER_LEFT" layoutX="48.0" layoutY="23.0" prefHeight="30.0" prefWidth="200.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                     <children>
-                                                        <ComboBox fx:id="requestMethod" prefHeight="28.0" prefWidth="73.0" />
-                                                        <TextField fx:id="requestUrl" prefHeight="28.0" prefWidth="807.0" promptText="请求地址 " />
+                                                        <ComboBox fx:id="requestMethod" prefHeight="30.0" prefWidth="118.0" />
+                                                        <TextField fx:id="requestUrl" prefHeight="30.0" prefWidth="878.0" promptText="请求地址 " />
                                                     </children>
                                                     <padding>
                                                         <Insets left="5.0" />
@@ -239,7 +243,7 @@
                             <children>
                                 <HBox alignment="CENTER_LEFT" layoutX="35.0" layoutY="14.0" prefHeight="30.0" prefWidth="200.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                     <children>
-                                        <ComboBox fx:id="generateType" prefHeight="28.0" prefWidth="69.0" promptText="实体" />
+                                        <ComboBox fx:id="generateType" prefHeight="30.0" prefWidth="86.0" promptText="实体" />
                                         <CheckBox fx:id="jsonField" mnemonicParsing="false" prefHeight="28.0" text="\@JSONField" />
                                         <CheckBox layoutX="166.0" layoutY="10.0" mnemonicParsing="false" prefHeight="28.0" text="\@XmlEnumValue" fx:id="xmlField" />
                                         <TextField fx:id="eumPrefix" prefHeight="28.0" prefWidth="95.0" promptText="枚举前缀" />
@@ -309,7 +313,7 @@
                                                         <Pagination fx:id="pagination" layoutX="-3.0" pageCount="1" prefHeight="58.0" prefWidth="984.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                                                         <HBox alignment="CENTER_LEFT" layoutX="-62.0" layoutY="431.0" prefHeight="45.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
                                                             <children>
-                                                                <ComboBox fx:id="pageSizeBox" onAction="#pageSizeBoxChange" prefHeight="30.0" prefWidth="65.0" promptText="100" />
+                                                                <ComboBox fx:id="pageSizeBox" onAction="#pageSizeBoxChange" prefHeight="30.0" prefWidth="91.0" promptText="100" />
                                                             </children>
                                                         </HBox>
                                                     </children>
@@ -514,7 +518,7 @@
                                                         <Pagination fx:id="paginationForValue" layoutX="-3.0" pageCount="1" prefHeight="58.0" prefWidth="984.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                                                         <HBox alignment="CENTER_LEFT" layoutX="-62.0" layoutY="431.0" prefHeight="45.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
                                                             <children>
-                                                                <ComboBox fx:id="pageSizeBoxForValue" onAction="#pageSizeBoxChangeForValue" prefHeight="30.0" prefWidth="65.0" promptText="100" />
+                                                                <ComboBox fx:id="pageSizeBoxForValue" onAction="#pageSizeBoxChangeForValue" prefHeight="30.0" prefWidth="98.0" promptText="100" />
                                                             </children>
                                                         </HBox>
                                                     </children>
