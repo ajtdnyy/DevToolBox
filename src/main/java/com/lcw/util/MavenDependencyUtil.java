@@ -181,6 +181,7 @@ public class MavenDependencyUtil {
         SettingsBuildingResult ret = builder.build(request);
 
         String path = ret.getEffectiveSettings().getLocalRepository();
+        path = path == null ? String.format("%s%s", System.getProperty("user.home"), "\\.m2\\repository") : path;
         return FACTORY.createArtifactRepository("local", "file://" + path, (ArtifactRepositoryLayout) new DefaultRepositoryLayout(), null, null);
     }
 
