@@ -30,11 +30,13 @@ public class ParameterModel {
     private String name;
     private String desc;
     private Method method;
+    private int index;
 
-    public ParameterModel(String name, String instance, Method method) {
+    public ParameterModel(String name, String instance, Method method, int index) {
         this.name = name;
         this.desc = instance;
         this.method = method;
+        this.index = index;
     }
 
     public String toParameterString() throws Exception {
@@ -115,7 +117,7 @@ public class ParameterModel {
 
     private ParameterizedType getParameterizedType() {
         for (Parameter p : method.getParameters()) {
-            if (p.getName().equals(name)) {
+            if (p.getName().equals(name) || String.format("arg%d", index).equals(p.getName())) {
                 if (p.getParameterizedType() instanceof ParameterizedType) {
                     return (ParameterizedType) p.getParameterizedType();
                 }

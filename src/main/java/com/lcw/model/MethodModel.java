@@ -33,9 +33,6 @@ public class MethodModel {
                 }
             }
             sb.append("]");
-            if (parameters.size() == 1 && sb.toString().endsWith("]]")) {
-                return "[[]]";
-            }
             return sb.toString();
         }
         return null;

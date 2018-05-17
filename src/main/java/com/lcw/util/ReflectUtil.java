@@ -81,13 +81,13 @@ public class ReflectUtil {
                     for (int i = 0; i < argumentTypes.length; i++) {
                         Type at = argumentTypes[i];
                         String name = theMethod.getParameters()[i].getName();
-                        parameterNames.add(new ParameterModel(name, at.toString(), theMethod));
+                        parameterNames.add(new ParameterModel(name, at.toString(), theMethod, i));
                     }
                 } else {
                     Collections.sort(localVariables, (LocalVariableNode o1, LocalVariableNode o2) -> Integer.valueOf(o1.index).compareTo(o2.index));
                     for (int i = 1; i <= argumentTypes.length; i++) {
                         LocalVariableNode lvn = localVariables.get(i);
-                        parameterNames.add(new ParameterModel(lvn.name, lvn.desc, theMethod));
+                        parameterNames.add(new ParameterModel(lvn.name, lvn.desc, theMethod, i - 1));
                     }
                 }
                 return parameterNames;
@@ -189,7 +189,7 @@ public class ReflectUtil {
     /**
      * 解析class的所有字段转为伪json
      *
-     * @param c 要转换的class
+     * @param c    要转换的class
      * @param deep 深度
      * @return
      */
