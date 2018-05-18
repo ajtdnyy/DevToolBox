@@ -115,7 +115,7 @@ public class ParameterModel {
         return sb.toString();
     }
 
-    private ParameterizedType getParameterizedType() {
+    public ParameterizedType getParameterizedType() {
         for (Parameter p : method.getParameters()) {
             if (p.getName().equals(name) || String.format("arg%d", index).equals(p.getName())) {
                 if (p.getParameterizedType() instanceof ParameterizedType) {
