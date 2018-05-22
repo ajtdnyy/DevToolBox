@@ -384,5 +384,8 @@ public class MainController implements Initializable {
     @FXML
     public LineChart networkChart1;
     private MainAction mainAction;
+    //tab6
+    @FXML
+    public TextArea logArea;
 
 }

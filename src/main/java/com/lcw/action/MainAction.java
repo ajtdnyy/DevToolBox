@@ -47,6 +47,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -139,13 +140,15 @@ public class MainAction {
                     List<String> services = ZookeeperUtil.getDubboService(null);
                     List<DubboServiceModel> dsms = new ArrayList<>();
                     if (services != null) {
+                        String filter = mc.serviceFilter.getText();
                         for (String service : services) {
-                            List<String> subList = ZookeeperUtil.getDubboService(service);
-                            DubboServiceModel ds = new DubboServiceModel(service);
-                            for (String s : subList) {
-                                ds.init(s, mc.timeout.getText());
+                            if (StringUtils.isNotBlank(filter)) {
+                                if (service.toLowerCase().contains(filter.toLowerCase())) {
+                                    initService(service, dsms);
+                                }
+                            } else {
+                                initService(service, dsms);
                             }
-                            dsms.add(ds);
                         }
                     }
                     Platform.runLater(() -> {
@@ -177,6 +180,15 @@ public class MainAction {
             LOGGER.error(ex.getLocalizedMessage(), ex);
             DialogUtil.close();
         }
+    }
+
+    private void initService(String service, Collection<DubboServiceModel> dsms) {
+        List<String> subList = ZookeeperUtil.getDubboService(service);
+        DubboServiceModel ds = new DubboServiceModel(service);
+        for (String s : subList) {
+            ds.init(s, mc.timeout.getText());
+        }
+        dsms.add(ds);
     }
 
     public void serviceFilterKeyUpAction() {
