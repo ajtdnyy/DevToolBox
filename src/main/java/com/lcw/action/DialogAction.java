@@ -17,7 +17,7 @@ import javafx.scene.control.ProgressBar;
  */
 public class DialogAction {
 
-    private final String adUrl = "http://www.vbox.top/ad.php?type=dialog";
+    private final String adUrl = "https://www.vbox.top/ad.php?type=dialog";
     private final DialogController dc;
 
     public DialogAction(DialogController dc) {

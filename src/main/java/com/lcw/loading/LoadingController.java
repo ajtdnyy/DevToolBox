@@ -31,7 +31,7 @@ public class LoadingController implements Initializable {
         File file = new File(System.getProperty("user.dir") + "/lib/" + name);
         if (!file.exists()) {
             try {
-                HttpClientUtil.downloadFile("http://www.vbox.top/app/" + name, file.getAbsolutePath());
+                HttpClientUtil.downloadFile("https://www.vbox.top/app/" + name, file.getAbsolutePath());
             } catch (IOException ex) {
                 LOGGER.error("下载依赖包失败，请重启再试。", ex);
             }

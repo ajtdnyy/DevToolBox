@@ -1,6 +1,6 @@
 /*
  * Copyright 2017 lancw.
- *  个人博客 http://www.vbox.top/
+ *  个人博客 https://www.vbox.top/
  */
 package com.lcw.action;
 
@@ -36,7 +36,7 @@ public class AboutAction {
     }
 
     public void openWebAction() {
-        ApplicationStageManager.getApplication().getHostServices().showDocument("http://www.vbox.top/?from=dvb");
+        ApplicationStageManager.getApplication().getHostServices().showDocument("https://www.vbox.top/?from=dvb");
     }
     private final AboutController ac;
     public static final String AD_TEXT = "虚位以待";
