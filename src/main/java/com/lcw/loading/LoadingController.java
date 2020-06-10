@@ -25,6 +25,7 @@ public class LoadingController implements Initializable {
         downloadJar("httpmime-4.5.3.jar");
         downloadJar("dubbo-2.5.3.jar");
         downloadJar("fastjson-1.2.47.jar");
+        downloadJar("javassist-3.25.0-GA.jar");
     }
 
     private void downloadJar(String name) {

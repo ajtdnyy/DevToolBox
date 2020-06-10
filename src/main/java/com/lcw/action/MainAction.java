@@ -25,6 +25,7 @@ import com.lcw.model.MethodModel;
 import com.lcw.model.PageCallBack;
 import com.lcw.model.ParameterModel;
 import com.lcw.model.SystemSetting;
+import com.lcw.util.ApacheDubboUtil;
 import com.lcw.util.ApplicationStageManager;
 import com.lcw.util.ChartUtil;
 import com.lcw.util.DataAccessUtil;
@@ -278,7 +279,14 @@ public class MainAction {
                                 param.add(o);
                             }
                         }
-                        Object o = DubboUtil.invoke(loader.loadClass(item.getInterfaceFullName()), md, item.getUrl(to, ip), param.toArray());
+                        Object o1;
+                        try {
+                            o1 = DubboUtil.invoke(loader.loadClass(item.getInterfaceFullName()), md, item.getUrl(to, ip), param.toArray());
+                        } catch (Throwable e) {
+                            LOGGER.error("调用dubbo异常，改为从apache dubbo重试。" + e.getLocalizedMessage());
+                            o1 = ApacheDubboUtil.invoke(loader.loadClass(item.getInterfaceFullName()), md, item.getUrl(to, ip), param.toArray());
+                        }
+                        Object o = o1;
                         Platform.runLater(() -> {
                             mc.responseArea.setText(o != null ? Formatter.formatDubboParam(o.toString()) : "");
                             DialogUtil.close();
