@@ -1,6 +1,6 @@
 /*
  * Copyright 2017 lancw.
- *  个人博客 https://www.vbox.top/
+ *  个人博客 https://vbox.top/
  */
 package com.lcw.action;
 
@@ -14,7 +14,7 @@ import com.lcw.controller.ThankUserController;
 public class ThankUserAction {
 
     public void initializeAction() {
-        tuc.thanks.getEngine().load("https://www.vbox.top/app/thanks.html");
+        tuc.thanks.getEngine().load("https://vbox.top/app/thanks.html");
     }
 
     public ThankUserAction(ThankUserController rc) {

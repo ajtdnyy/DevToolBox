@@ -1,6 +1,6 @@
 /*
  * Copyright 2017 lancw.
- *  个人博客 https://www.vbox.top/
+ *  个人博客 https://vbox.top/
  */
 package com.lcw.controller;
 

@@ -17,7 +17,7 @@ import javafx.scene.control.ProgressBar;
  */
 public class DialogAction {
 
-    private final String adUrl = "https://www.vbox.top/ad.php?type=dialog";
+    private final String adUrl = "https://vbox.top/ad.php?type=dialog";
     private final DialogController dc;
 
     public DialogAction(DialogController dc) {
@@ -36,7 +36,7 @@ public class DialogAction {
         dc.closeAdBtn.setVisible(false);
         dc.webView.getEngine().load(adUrl);
         dc.webView.getEngine().locationProperty().addListener((ObservableValue<? extends String> ov, final String oldLoc, final String loc) -> {
-            if (!adUrl.equals(loc)) {
+            if (!loc.startsWith("https://vbox.top")) {
                 Platform.runLater(() -> {
                     ApplicationStageManager.getApplication().getHostServices().showDocument(loc);
                 });

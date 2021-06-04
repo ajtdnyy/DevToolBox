@@ -1,6 +1,6 @@
 /*
  * Copyright 2017 lancw.
- *  个人博客 https://www.vbox.top/
+ *  个人博客 https://vbox.top/
  */
 package com.lcw.action;
 
@@ -33,5 +33,5 @@ public class HelpAction {
     }
 
     private final HelpController hc;
-    private final String helpURL = "https://www.vbox.top/app/help.html";
+    private final String helpURL = "https://vbox.top/app/help.html";
 }

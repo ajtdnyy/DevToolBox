@@ -28,7 +28,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Hyperlink graphicTextGap="0.0" layoutX="122.0" layoutY="73.0" onAction="#openWeb" text="官方网站 https://www.vbox.top" underline="true" AnchorPane.leftAnchor="116.0" AnchorPane.topAnchor="75.0">
+      <Hyperlink graphicTextGap="0.0" layoutX="122.0" layoutY="73.0" onAction="#openWeb" text="官方网站 https://vbox.top" underline="true" AnchorPane.leftAnchor="116.0" AnchorPane.topAnchor="75.0">
          <font>
             <Font size="18.0" />
          </font>

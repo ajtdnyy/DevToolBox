@@ -61,7 +61,7 @@ import javafx.util.Duration;
  */
 public class PuzzlePiecesApp {
 
-    private static final Image IMAGE = new Image("https://www.vbox.top/app/ad.jpg");
+    private static final Image IMAGE = new Image("https://vbox.top/app/ad.jpg");
     private Timeline timeline;
 
     public Parent createContent() {

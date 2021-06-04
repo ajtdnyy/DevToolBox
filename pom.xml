@@ -19,7 +19,7 @@
         <app.vendor>Acme Inc</app.vendor>
         <!-- The Application version used by javapackager -->
         <app.version>1.0</app.version>
-        <app.url>https://www.vbox.top/app</app.url>
+        <app.url>https://vbox.top/app</app.url>
         <!-- Optional scp target for application artifacts hosted at the above url -->
         <app.deploy.target></app.deploy.target>
         <!-- The app and launcher will be assembled in this folder -->

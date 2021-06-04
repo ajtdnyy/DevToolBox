@@ -1,6 +1,6 @@
 /*
  * Copyright 2017 lancw.
- *  个人博客 https://www.vbox.top/
+ *  个人博客 https://vbox.top/
  */
 package com.lcw.action;
 
@@ -107,6 +107,6 @@ public class FeedbackAction {
         this.fc = fc;
     }
     private final FeedbackController fc;
-    private static final String FEEDBACK_URL = "https://www.vbox.top/api/respond/submit_comment/";
+    private static final String FEEDBACK_URL = "https://vbox.top/api/respond/submit_comment/";
     private static final Logger LOGGER = LoggerFactory.getLogger(FeedbackAction.class);
 }
