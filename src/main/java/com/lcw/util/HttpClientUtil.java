@@ -5,15 +5,10 @@ import static com.lcw.eum.RequestMethod.GET;
 import static com.lcw.eum.RequestMethod.POST;
 import com.lcw.model.HttpRequestData;
 import com.sun.webkit.network.CookieManager;
-import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.net.CookieHandler;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -56,27 +51,6 @@ public class HttpClientUtil {
     public static CloseableHttpClient CLIENT;
     private static final CookieStore COOKIE_STORE = new BasicCookieStore();
     private static final Logger LOGGER = LoggerFactory.getLogger(HttpClientUtil.class.getName());
-
-    /**
-     * 下载文件
-     *
-     * @param destUrl
-     * @param fileName
-     * @throws IOException
-     */
-    public static void downloadFile(String destUrl, String fileName) throws IOException {
-        byte[] buf = new byte[1024];
-        int size = 0;
-        URL url = new URL(destUrl);
-        HttpURLConnection httpUrl = (HttpURLConnection) url.openConnection();
-        httpUrl.connect();
-        try (BufferedInputStream bis = new BufferedInputStream(httpUrl.getInputStream()); FileOutputStream fos = new FileOutputStream(fileName)) {
-            while ((size = bis.read(buf)) != -1) {
-                fos.write(buf, 0, size);
-            }
-        }
-        httpUrl.disconnect();
-    }
 
     public static HttpResponse sendRequest(HttpRequestData.Request req) throws Exception {
         Integer timeout = Integer.valueOf(req.getTimeout());

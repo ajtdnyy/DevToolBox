@@ -19,6 +19,7 @@ import com.lcw.eum.RedisDataType;
 import com.lcw.eum.RequestMethod;
 import com.lcw.eum.UserAgent;
 import com.lcw.game.PuzzlePiecesApp;
+import com.lcw.loading.LoadingController;
 import com.lcw.model.DubboServiceModel;
 import com.lcw.model.HttpRequestData;
 import com.lcw.model.MethodModel;
@@ -424,7 +425,7 @@ public class MainAction {
                 Optional<ButtonType> o = a.showAndWait();
                 if (o.get().getButtonData().equals(ButtonBar.ButtonData.OK_DONE)) {
                     String dir = System.getProperty("user.dir");
-                    HttpClientUtil.downloadFile(json.get("url").getAsString(), dir + "/开发辅助.jar.update");
+                    LoadingController.downloadFile(json.get("url").getAsString(), dir + "/开发辅助.jar.update");
                     a.setContentText("下载完成，请重启程序。");
                     a.setAlertType(Alert.AlertType.INFORMATION);
                     a.showAndWait();
