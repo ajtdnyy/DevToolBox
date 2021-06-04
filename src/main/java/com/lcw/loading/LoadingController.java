@@ -22,6 +22,11 @@ public class LoadingController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         action = new LoadingAction(this);
         action.initialize();
+        // 20210604
+        downloadJar("httpclient-4.5.13.jar");
+        downloadJar("httpcore-4.4.13.jar");
+        downloadJar("httpmime-4.5.6.jar");
+
         downloadJar("httpmime-4.5.3.jar");
         downloadJar("dubbo-2.5.3.jar");
         downloadJar("fastjson-1.2.47.jar");
